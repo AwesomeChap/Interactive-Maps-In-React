@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import App from './app';
 
 import axios from 'axios'
+import { spawn } from 'child_process';
 
 export default class Wrapper extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ export default class Wrapper extends Component {
     this.state = {
       selectedFile: null,
       uploaded: false,
+      clicked: false,
       flnm: ""
     }
   }
@@ -20,25 +22,28 @@ export default class Wrapper extends Component {
   handleUpload = (e) => {
     e.preventDefault();
     console.log(this.state.selectedFile);
-    const data = new FormData();
-    const isCsv = this.state.selectedFile.name.split('.')[1] === 'csv';
+    this.setState({ clicked: true }, () => {
 
-    if (isCsv) {
-      data.append('file', this.state.selectedFile)
+      const data = new FormData();
+      const isCsv = this.state.selectedFile.name.split('.')[1] === 'csv';
 
-      // console.log(this.state.selectedFile);
+      if (isCsv) {
+        data.append('file', this.state.selectedFile)
 
-      axios.post('/api/upload', data).then(res => {
-        this.setState({
-          uploaded: true
-        })
-        console.log(res.statusText)
-      }).catch(e => console.log(e));
-    }
-    else{
-      this.setState({selectedFile : null, flnm: ""});
-      alert('Please enter csv file');
-    }
+        // console.log(this.state.selectedFile);
+
+        axios.post('/api/upload', data).then(res => {
+          this.setState({
+            uploaded: true
+          })
+          console.log(res.statusText)
+        }).catch(e => console.log(e));
+      }
+      else {
+        this.setState({ selectedFile: null, flnm: "" });
+        alert('Please enter csv file');
+      }
+    })
   }
 
   render() {
@@ -52,8 +57,8 @@ export default class Wrapper extends Component {
                 <div className="heading">Interactive Graphs In React</div>
                 <div className="upload-form">
                   <input onChange={this.handleChange} type="file" name="selectedFile" id="file" class="inputfile" data-multiple-caption="{count} files selected" multiple />
-                  <label htmlFor="file">{this.state.flnm.length ? this.state.flnm : "ChooseFile"}</label>
-                  <button onClick={this.handleUpload} > Upload </button>
+                  <label htmlFor="file">{this.state.flnm.length ? this.state.flnm : "Choose File"}</label>
+                  <button onClick={this.handleUpload} > {!this.state.clicked ? "Upload" : <span className="spinner"></span> } </button>
                 </div>
               </div>
             )

@@ -3,7 +3,7 @@
 
 html{
   height: 100%;
-  width: 100%;
+  width: 100%;   
 }
 
 body{
@@ -183,7 +183,8 @@ input, button, label{
   display: inline-block;
   padding: 10px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.151);
+  background: rgba(255, 255, 255, 0.13);
+  transition: all 0.3s;
   button{
     padding: 10px 15px;
     outline: none;
@@ -201,12 +202,32 @@ input, button, label{
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
   }
 }
 
 .inputfile {
   display: none;
+}
+
+.spinner{
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-bottom: -5px;
+  border-radius: 50%;
+  // box-sizing: border-box;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid transparent;
+  border-left: 2px solid transparent;
+  animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner{
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
 }

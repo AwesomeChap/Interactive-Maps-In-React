@@ -27,7 +27,7 @@ class App extends Component {
     this.setState({ time_filter: time, time_filter_selected : true, filtered_data: newData });
   }
 
-  handleResetFilter = () => this.setState({ time_filter: "" });
+  handleResetFilter = () => this.setState({ time_filter: "", time_filter_selected: false});
 
   componentDidMount() {
     axios.get('/api/data').then(({ data }) => {

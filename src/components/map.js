@@ -4,7 +4,7 @@ import ReactMapGL, { Marker, Popup, NavigationControl, FullscreenControl } from 
 import CityPin from './city-pin';
 import CityInfo from './city-info';
 
-const TOKEN = ''; // Set your mapbox token here
+const TOKEN = 'pk.eyJ1IjoiYXdlc29tZWNoYXAiLCJhIjoiY2p3OWx3djN2MDBsODQzcGZqbDBwdTNvbCJ9.tRR9WzLF1fUVZBfh5lY_Ew'; // Set your mapbox token here
 
 const fullscreenControlStyle = {
   position: 'absolute',
@@ -49,7 +49,9 @@ export default class Mapp extends Component {
           key={`marker-${index}`}
           longitude={city.longitude}
           latitude={city.latitude} >
-          <CityPin size={20} onClick={() => this.setState({ popupInfo: city })} />
+          <CityPin size={20} 
+            // onClick={() => this.setState({ popupInfo: city })} 
+          />
         </Marker>
       );
     }

@@ -65784,10 +65784,8 @@ class Mapp extends _react.Component {
           longitude: city.longitude,
           latitude: city.latitude
         }, _react.default.createElement(_cityPin.default, {
-          size: 20,
-          onClick: () => this.setState({
-            popupInfo: city
-          })
+          size: 20 // onClick={() => this.setState({ popupInfo: city })} 
+
         }));
       }
     });
@@ -104354,7 +104352,8 @@ class App extends _react.Component {
     });
 
     _defineProperty(this, "handleResetFilter", () => this.setState({
-      time_filter: ""
+      time_filter: "",
+      time_filter_selected: false
     }));
 
     this.state = {
@@ -104427,7 +104426,9 @@ class App extends _react.Component {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./app.scss":"app.scss","./components/map":"components/map.js","axios":"../node_modules/axios/index.js","./components/charts":"components/charts.js"}],"Wrapper.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./app.scss":"app.scss","./components/map":"components/map.js","axios":"../node_modules/axios/index.js","./components/charts":"components/charts.js"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
+
+},{}],"Wrapper.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -104440,6 +104441,8 @@ var _react = _interopRequireWildcard(require("react"));
 var _app = _interopRequireDefault(require("./app"));
 
 var _axios = _interopRequireDefault(require("axios"));
+
+var _child_process = require("child_process");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -104461,30 +104464,35 @@ class Wrapper extends _react.Component {
     _defineProperty(this, "handleUpload", e => {
       e.preventDefault();
       console.log(this.state.selectedFile);
-      const data = new FormData();
-      const isCsv = this.state.selectedFile.name.split('.')[1] === 'csv';
+      this.setState({
+        clicked: true
+      }, () => {
+        const data = new FormData();
+        const isCsv = this.state.selectedFile.name.split('.')[1] === 'csv';
 
-      if (isCsv) {
-        data.append('file', this.state.selectedFile); // console.log(this.state.selectedFile);
+        if (isCsv) {
+          data.append('file', this.state.selectedFile); // console.log(this.state.selectedFile);
 
-        _axios.default.post('/api/upload', data).then(res => {
+          _axios.default.post('/api/upload', data).then(res => {
+            this.setState({
+              uploaded: true
+            });
+            console.log(res.statusText);
+          }).catch(e => console.log(e));
+        } else {
           this.setState({
-            uploaded: true
+            selectedFile: null,
+            flnm: ""
           });
-          console.log(res.statusText);
-        }).catch(e => console.log(e));
-      } else {
-        this.setState({
-          selectedFile: null,
-          flnm: ""
-        });
-        alert('Please enter csv file');
-      }
+          alert('Please enter csv file');
+        }
+      });
     });
 
     this.state = {
       selectedFile: null,
       uploaded: false,
+      clicked: false,
       flnm: ""
     };
   }
@@ -104506,15 +104514,17 @@ class Wrapper extends _react.Component {
       multiple: true
     }), _react.default.createElement("label", {
       htmlFor: "file"
-    }, this.state.flnm.length ? this.state.flnm : "ChooseFile"), _react.default.createElement("button", {
+    }, this.state.flnm.length ? this.state.flnm : "Choose File"), _react.default.createElement("button", {
       onClick: this.handleUpload
-    }, " Upload "))));
+    }, " ", !this.state.clicked ? "Upload" : _react.default.createElement("span", {
+      className: "spinner"
+    }), " "))));
   }
 
 }
 
 exports.default = Wrapper;
-},{"react":"../node_modules/react/index.js","./app":"app.js","axios":"../node_modules/axios/index.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./app":"app.js","axios":"../node_modules/axios/index.js","child_process":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireWildcard(require("react"));
@@ -104558,7 +104568,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63347" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61048" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
