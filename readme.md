@@ -1,4 +1,4 @@
-# Interactive Maps Reactjs
+# Interactive Maps in React
 This application demonstrates how can we generate Interactive Maps in React. In order to render maps and charts `react-map-gl` library is used. You may visit [here](https://react-interactive-maps-demo.herokuapp.com/) in order to see it's live demo.
 
 ## How to use it ?
