@@ -4,17 +4,17 @@ This application demonstrates how can we generate Interactive Maps in React. In 
 ## How to use it ?
 * Upload a `.csv` file which contain dataset. You may see sample dataset file `data.csv` located in `server/data` directory in order to get the idea about the files this demo would accept. 
 <p align="center">
-  <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/uploaded.png" width="800">
+  <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/uploaded.PNG" width="800">
 </p>
 
 * After uploading the suitable `.csv` file. Your screen would seem quite similar to as shown below. You may click `SHOW CHARTS` button (located in top right corner) in order to see the charts.
 <p align="center">
-  <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/first_preview.png" width="800">
+  <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/first_preview.PNG" width="800">
 </p>
 
 * After you'll clicked the button. You can also filter content by clicking on individual bars. Now in case you wish to revert back to unfiltered state, you can do that by clicking the `UNDO` button (located below `SHOW BUTTON`).
 <p align="center">
-  <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/filtered_preview.png" width="800">
+  <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/filtered_preview.PNG" width="800">
 </p>
 
 ## How to run it locally ?
