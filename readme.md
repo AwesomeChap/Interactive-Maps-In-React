@@ -12,7 +12,7 @@ This application demonstrates how can we generate Interactive Maps in React. In 
   <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/first_preview.PNG" width="800">
 </p>
 
-* After you'll clicked the button. You can also filter content by clicking on individual bars. Now in case you wish to revert back to unfiltered state, you can do that by clicking the `UNDO` button (located below `SHOW BUTTON`).
+* After you'll clicked the button. You can also filter content by clicking on individual bars. Now in case you wish to revert back to unfiltered state, you can do that by clicking the `UNDO` button (located below `SHOW CHARTS` button).
 <p align="center">
   <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/filtered_preview.PNG" width="800">
 </p>
