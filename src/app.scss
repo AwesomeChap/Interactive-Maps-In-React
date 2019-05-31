@@ -1,0 +1,212 @@
+@import "./charts.scss";
+@import url('https://fonts.googleapis.com/css?family=Coda|Nunito&display=swap');
+
+html{
+  height: 100%;
+  width: 100%;
+}
+
+body{
+  margin: 0;
+  background: #333;
+  color: white;
+  overflow: hidden;
+  font-family: 'Nunito', sans-serif;
+}
+
+.loading{
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  // background-color: red;
+  border-radius: 50%;
+  border-top: 3px solid #888;
+  border-bottom: 3px solid #888;
+  border-right: 3px solid transparent;
+  border-left: 3px solid transparent;
+  transform:  translate(-50%,-50%) rotate(0deg);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin{
+  to{
+    transform: translate(-50%,-50%) rotate(360deg);
+  }
+}
+
+.btns{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top:10px;
+  right:10px;
+}
+
+.btn{
+  margin: 5px 0;
+  background: rgb(255, 255, 255);
+  box-shadow: 0 0 10px #000;
+  color: #333;
+  font-size: 25px;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  overflow: hidden;
+  cursor: pointer;
+  animation: expand-out 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes expand-out {
+  from {
+    transform: scale(0.5);
+  }
+  to{
+    transform: scale(1);
+  }
+}
+
+.charts-container{
+  position: absolute;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.74);
+  bottom: 0;
+  left: 0;
+  display: flex;
+  box-sizing: border-box;
+  overflow: auto;
+  z-index: 2;
+  animation: riseUp 0.4s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+}
+
+@keyframes riseUp{
+  from {
+    transform: translateY(100%);
+  }
+}
+
+.chart{
+  max-width: 100%;
+  background: rgba(34, 34, 34, 0.438);
+  border-left: 1px solid #666;
+  border-right: 1px solid #666;
+  box-sizing: border-box;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+}
+
+.dummy-chart{
+  height: 100%;
+  width: 400px;
+  box-sizing: border-box;
+  color: white;
+  font-size: 40px;
+  display: flex;
+  text-transform: uppercase;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide{
+  color:  #888 !important;
+}
+
+.diag-strike{
+  position: absolute;
+  width: 70%;
+  height: 2px;
+  transform: rotate(-45deg);
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  background: #888;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #111; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #aaa; 
+}
+
+.chart-heading{
+  span{
+    background: #070707;
+    color : #eee;
+    padding: 5px 10px;
+  }
+  margin: 10px;
+}
+
+input, button, label{
+  font-family: 'Coda', sans-serif;
+  font-size: 24px;
+  border-radius: 5px;
+  cursor: pointer;
+} 
+
+.upload-form-wrapper{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading{
+  font-family: 'Coda', sans-serif;
+  font-size: 36px;
+  position: absolute;
+  top: 10%;
+  display: inline;
+  text-align: center;
+}
+
+.upload-form{
+  display: inline-block;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.151);
+  button{
+    padding: 10px 15px;
+    outline: none;
+    border: none;
+    color: white;
+    background: #ED0A3F;
+    text-transform: uppercase;
+    margin: 10px;
+  }
+  label{
+    padding: 10px;
+    // width: 150px;
+    background: #333;
+    margin: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+.inputfile {
+  display: none;
+}
