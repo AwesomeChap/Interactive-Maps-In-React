@@ -4,7 +4,7 @@ This application demonstrates how can we generate Interactive Maps in React. In 
 ## How to use it ?
 * Upload a `.csv` file which contain dataset. You may see sample dataset file `data.csv` located in `server/data` directory in order to get the idea about the files this demo would accept. 
 <p align="center">
-  <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/uploaded.PNG" width="800">
+  <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/upload.PNG" width="800">
 </p>
 
 * After uploading the suitable `.csv` file. Your screen would seem quite similar to as shown below. You may click `SHOW CHARTS` button (located in top right corner) in order to see the charts.
