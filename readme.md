@@ -1,20 +1,20 @@
-# Interactive Maps Reactjs
+# Interactive Maps in React
 This application demonstrates how can we generate Interactive Maps in React. In order to render maps and charts `react-map-gl` library is used. You may visit [here](https://react-interactive-maps-demo.herokuapp.com/) in order to see it's live demo.
 
 ## How to use it ?
 * Upload a `.csv` file which contain dataset. The uploaded `.csv` must be according to the format specified at `data.csv` located in `server/data` directory. Apart from uploading your own dataset you can also proceed by clicking `USE DUMMY DATA` button.
 <p align="center">
-  <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/uploaded.png" width="800">
+  <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/upload.PNG" width="800">
 </p>
 
 * After uploading the suitable `.csv` file. Your screen would seem quite similar to as shown below. You may click `SHOW CHARTS` button (located in top right corner) in order to see the charts.
 <p align="center">
-  <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/first_preview.png" width="800">
+  <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/first_preview.PNG" width="800">
 </p>
 
-* After you'll clicked the button. You can also filter content by clicking on individual bars. Now in case you wish to revert back to unfiltered state, you can do that by clicking the `UNDO` button (located below `SHOW BUTTON`).
+* After you'll clicked the button. You can also filter content by clicking on individual bars. Now in case you wish to revert back to unfiltered state, you can do that by clicking the `UNDO` button (located below `SHOW CHARTS` button).
 <p align="center">
-  <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/filtered_preview.png" width="800">
+  <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/filtered_preview.PNG" width="800">
 </p>
 
 ## How to run it locally ?
