@@ -2,7 +2,7 @@
 This application demonstrates how can we generate Interactive Maps in React. In order to render maps and charts `react-map-gl` library is used. You may visit [here](https://react-interactive-maps-demo.herokuapp.com/) in order to see it's live demo.
 
 ## How to use it ?
-* Upload a `.csv` file which contain dataset. You may see sample dataset file `data.csv` located in `server/data` directory in order to get the idea about the files this demo would accept. 
+* Upload a `.csv` file which contain dataset. The uploaded `.csv` must be according to the format specified at `data.csv` located in `server/data` directory. Apart from uploading your own dataset you can also proceed by clicking `USE DUMMY DATA` button.
 <p align="center">
   <img src="https://github.com/AwesomeChap/Interactive-Maps-In-React/blob/master/uploaded.png" width="800">
 </p>

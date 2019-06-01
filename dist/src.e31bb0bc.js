@@ -104357,7 +104357,7 @@ class App extends _react.Component {
     }));
 
     this.state = {
-      loading: false,
+      loading: true,
       data: [],
       filtered_data: [],
       booking_time_data: [],
@@ -104369,7 +104369,9 @@ class App extends _react.Component {
   }
 
   componentDidMount() {
-    _axios.default.get('/api/data').then((_ref) => {
+    const requestUrl = this.props.choice === 1 ? '/api/data' : '/api/default';
+
+    _axios.default.get(requestUrl).then((_ref) => {
       let data = _ref.data;
       let i = 0;
       const d1 = data.map(d => {
@@ -104404,7 +104406,7 @@ class App extends _react.Component {
         loading: false,
         data: d1,
         booking_time_data: btd
-      });
+      }, () => console.log('loaded'));
     }).catch(e => console.log(e));
   }
 
@@ -104426,9 +104428,7 @@ class App extends _react.Component {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./app.scss":"app.scss","./components/map":"components/map.js","axios":"../node_modules/axios/index.js","./components/charts":"components/charts.js"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
-
-},{}],"Wrapper.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./app.scss":"app.scss","./components/map":"components/map.js","axios":"../node_modules/axios/index.js","./components/charts":"components/charts.js"}],"Wrapper.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -104442,8 +104442,6 @@ var _app = _interopRequireDefault(require("./app"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _child_process = require("child_process");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -104454,6 +104452,18 @@ class Wrapper extends _react.Component {
   constructor(props) {
     super(props);
 
+    _defineProperty(this, "handleResize", () => {
+      if (document.documentElement.clientWidth <= 700 || document.documentElement.clientHeight <= 500) {
+        this.setState({
+          isMobileView: true
+        });
+      } else {
+        this.setState({
+          isMobileView: false
+        });
+      }
+    });
+
     _defineProperty(this, "handleChange", e => {
       this.setState({
         selectedFile: e.target.files[0],
@@ -104461,8 +104471,20 @@ class Wrapper extends _react.Component {
       });
     });
 
+    _defineProperty(this, "handleUseDefault", e => {
+      this.setState({
+        useDefault: true
+      });
+    });
+
     _defineProperty(this, "handleUpload", e => {
       e.preventDefault();
+
+      if (!this.state.selectedFile) {
+        alert('Please choose a file!');
+        return;
+      }
+
       console.log(this.state.selectedFile);
       this.setState({
         clicked: true
@@ -104471,7 +104493,7 @@ class Wrapper extends _react.Component {
         const isCsv = this.state.selectedFile.name.split('.')[1] === 'csv';
 
         if (isCsv) {
-          data.append('file', this.state.selectedFile); // console.log(this.state.selectedFile);
+          data.append('file', this.state.selectedFile);
 
           _axios.default.post('/api/upload', data).then(res => {
             this.setState({
@@ -104490,15 +104512,35 @@ class Wrapper extends _react.Component {
     });
 
     this.state = {
+      isMobileView: false,
       selectedFile: null,
       uploaded: false,
+      useDefault: false,
       clicked: false,
       flnm: ""
     };
   }
 
+  componentDidMount() {
+    if (document.documentElement.clientWidth <= 700 || document.documentElement.clientHeight <= 500) {
+      this.setState({
+        isMobileView: true
+      });
+    } else {
+      this.setState({
+        isMobileView: false
+      });
+    }
+
+    window.addEventListener('resize', this.handleResize);
+  }
+
   render() {
-    return _react.default.createElement(_react.default.Fragment, null, this.state.uploaded ? _react.default.createElement(_app.default, null) : _react.default.createElement("div", {
+    return _react.default.createElement(_react.default.Fragment, null, this.state.isMobileView ? _react.default.createElement("div", {
+      className: "upload-form-wrapper"
+    }, _react.default.createElement("p", null, "Please open it in bigger window.")) : this.state.uploaded || this.state.useDefault ? _react.default.createElement(_app.default, {
+      choice: this.state.uploaded ? 1 : 2
+    }) : _react.default.createElement("div", {
       className: "upload-form-wrapper"
     }, _react.default.createElement("div", {
       className: "heading"
@@ -104518,13 +104560,20 @@ class Wrapper extends _react.Component {
       onClick: this.handleUpload
     }, " ", !this.state.clicked ? "Upload" : _react.default.createElement("span", {
       className: "spinner"
-    }), " "))));
+    }), " ")), _react.default.createElement("p", null, "OR"), _react.default.createElement("div", {
+      className: "upload-form"
+    }, _react.default.createElement("button", {
+      style: {
+        backgroundColor: "#F55F36"
+      },
+      onClick: this.handleUseDefault
+    }, " Use Dummy Data "))));
   }
 
 }
 
 exports.default = Wrapper;
-},{"react":"../node_modules/react/index.js","./app":"app.js","axios":"../node_modules/axios/index.js","child_process":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./app":"app.js","axios":"../node_modules/axios/index.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireWildcard(require("react"));
@@ -104568,7 +104617,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61048" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50186" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

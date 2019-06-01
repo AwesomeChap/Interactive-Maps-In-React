@@ -11,12 +11,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
+      loading: true,
       data: [],
       filtered_data: [],
       booking_time_data: [],
       time_filter: "",
-      time_filter_selected : false,
+      time_filter_selected: false,
       selectedFile: null,
       uploaded: false
     }
@@ -24,13 +24,15 @@ class App extends Component {
 
   handleBTF = (time) => {
     const newData = [...this.state.data].filter(d => d.time_hour === time);
-    this.setState({ time_filter: time, time_filter_selected : true, filtered_data: newData });
+    this.setState({ time_filter: time, time_filter_selected: true, filtered_data: newData });
   }
 
-  handleResetFilter = () => this.setState({ time_filter: "", time_filter_selected: false});
+  handleResetFilter = () => this.setState({ time_filter: "", time_filter_selected: false });
 
   componentDidMount() {
-    axios.get('/api/data').then(({ data }) => {
+
+    const requestUrl = this.props.choice === 1 ? '/api/data' : '/api/default';
+    axios.get(requestUrl).then(({ data }) => {
       let i = 0;
       const d1 = data.map(d => {
         if (d.from_area_id != "NULL" && d.from_long != "NULL" && d.from_lat !== "NULL") {
@@ -61,24 +63,24 @@ class App extends Component {
         style: { fill: '#aaa', fontSize: 13 }
       }))
 
-      this.setState({ loading: false, data: d1, booking_time_data: btd });
+      this.setState({ loading: false, data: d1, booking_time_data: btd },() => console.log('loaded'));
     }).catch(e => console.log(e));
   }
 
   render() {
     return (
       <>
-      {
-        this.state.loading ? (
-          <div className="loading"></div>
-        ) : (
-            <>
-              <Map cities={!this.state.time_filter_selected ? this.state.data : this.state.filtered_data} />
-              <Charts time_filter_selected={this.state.time_filter_selected} time_filter={this.state.time_filter} resetFilter={this.handleResetFilter} getBTF={this.handleBTF} btd={this.state.booking_time_data} />
-            </>
-          )
-      }
-    </>
+        {
+          this.state.loading ? (
+            <div className="loading"></div>
+          ) : (
+              <>
+                <Map cities={!this.state.time_filter_selected ? this.state.data : this.state.filtered_data} />
+                <Charts time_filter_selected={this.state.time_filter_selected} time_filter={this.state.time_filter} resetFilter={this.handleResetFilter} getBTF={this.handleBTF} btd={this.state.booking_time_data} />
+              </>
+            )
+        }
+      </>
     )
   }
 }

@@ -357,8 +357,6 @@ body {
     padding: 5px 10px; }
 
 input, button, label {
-  font-family: 'Coda', sans-serif;
-  font-size: 24px;
   border-radius: 5px;
   cursor: pointer; }
 
@@ -366,11 +364,13 @@ input, button, label {
   height: 100vh;
   width: 100vw;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  font-family: 'Coda', sans-serif;
+  font-size: 24px; }
 
 .heading {
-  font-family: 'Coda', sans-serif;
   font-size: 36px;
   position: absolute;
   top: 10%;
@@ -384,6 +384,8 @@ input, button, label {
   background: rgba(255, 255, 255, 0.13);
   transition: all 0.3s; }
   .upload-form button {
+    font-family: 'Coda', sans-serif;
+    font-size: 24px;
     padding: 10px 15px;
     outline: none;
     border: none;

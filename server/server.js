@@ -3,7 +3,7 @@ const path = require('path');
 const fileUpload = require('express-fileupload');
 let csvToJson = require('convert-csv-to-json');
 const publicPath = path.join(__dirname, '..', 'dist');
-const inputFile = path.join(__dirname, 'data', 'data.csv');
+const defaultData = path.join(__dirname, 'data', 'data.csv');
 const fileDir = path.join(__dirname, 'data', 'data_set.csv');
 
 const app = express();
@@ -11,6 +11,11 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static(publicPath));
 app.use(fileUpload());
+
+app.get('/api/default', (req, res) => {
+  let json = csvToJson.fieldDelimiter(',').formatValueByType().getJsonFromCsv(defaultData);
+  res.json(json.slice(10000,12000));
+})
 
 app.get('/api/data', (req, res) => {
   let json = csvToJson.fieldDelimiter(',').formatValueByType().getJsonFromCsv(fileDir);

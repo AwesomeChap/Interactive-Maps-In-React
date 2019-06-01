@@ -2,16 +2,34 @@ import React, { Component } from 'react';
 import App from './app';
 
 import axios from 'axios'
-import { spawn } from 'child_process';
 
 export default class Wrapper extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isMobileView: false,
       selectedFile: null,
       uploaded: false,
+      useDefault: false,
       clicked: false,
       flnm: ""
+    }
+  }
+
+  componentDidMount() {
+    if (document.documentElement.clientWidth <= 700 || document.documentElement.clientHeight <=500) {
+      this.setState({ isMobileView: true })
+    } else {
+      this.setState({ isMobileView: false })
+    }
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  handleResize = () => {
+    if (document.documentElement.clientWidth <= 700 || document.documentElement.clientHeight <=500) {
+      this.setState({ isMobileView: true })
+    } else {
+      this.setState({ isMobileView: false })
     }
   }
 
@@ -19,8 +37,16 @@ export default class Wrapper extends Component {
     this.setState({ selectedFile: e.target.files[0], flnm: e.target.files[0].name })
   }
 
+  handleUseDefault = (e) => {
+    this.setState({ useDefault: true });
+  }
+
   handleUpload = (e) => {
     e.preventDefault();
+    if (!this.state.selectedFile) {
+      alert('Please choose a file!');
+      return;
+    }
     console.log(this.state.selectedFile);
     this.setState({ clicked: true }, () => {
 
@@ -29,9 +55,6 @@ export default class Wrapper extends Component {
 
       if (isCsv) {
         data.append('file', this.state.selectedFile)
-
-        // console.log(this.state.selectedFile);
-
         axios.post('/api/upload', data).then(res => {
           this.setState({
             uploaded: true
@@ -50,17 +73,27 @@ export default class Wrapper extends Component {
     return (
       <>
         {
-          this.state.uploaded ? (
-            <App />
+          this.state.isMobileView ? (
+            <div className="upload-form-wrapper">
+              <p>Please open it in bigger window.</p>
+            </div>
           ) : (
-              <div className="upload-form-wrapper">
-                <div className="heading">Interactive Graphs In React</div>
-                <div className="upload-form">
-                  <input onChange={this.handleChange} type="file" name="selectedFile" id="file" class="inputfile" data-multiple-caption="{count} files selected" multiple />
-                  <label htmlFor="file">{this.state.flnm.length ? this.state.flnm : "Choose File"}</label>
-                  <button onClick={this.handleUpload} > {!this.state.clicked ? "Upload" : <span className="spinner"></span> } </button>
-                </div>
-              </div>
+              (this.state.uploaded || this.state.useDefault) ? (
+                <App choice={this.state.uploaded ? 1 : 2} />
+              ) : (
+                  <div className="upload-form-wrapper">
+                    <div className="heading">Interactive Graphs In React</div>
+                    <div className="upload-form">
+                      <input onChange={this.handleChange} type="file" name="selectedFile" id="file" class="inputfile" data-multiple-caption="{count} files selected" multiple />
+                      <label htmlFor="file">{this.state.flnm.length ? this.state.flnm : "Choose File"}</label>
+                      <button onClick={this.handleUpload} > {!this.state.clicked ? "Upload" : <span className="spinner"></span>} </button>
+                    </div>
+                    <p>OR</p>
+                    <div className="upload-form">
+                      <button style={{ backgroundColor: "#F55F36" }} onClick={this.handleUseDefault} > Use Dummy Data </button>
+                    </div>
+                  </div>
+                )
             )
         }
       </>
