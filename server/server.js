@@ -14,7 +14,7 @@ app.use(fileUpload());
 
 app.get('/api/default', (req, res) => {
   let json = csvToJson.fieldDelimiter(',').formatValueByType().getJsonFromCsv(defaultData);
-  res.json(json.slice(10000,12000));
+  res.json(json.slice(1000,3000));
 })
 
 app.get('/api/data', (req, res) => {

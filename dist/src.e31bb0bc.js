@@ -104375,7 +104375,7 @@ class App extends _react.Component {
       let data = _ref.data;
       let i = 0;
       const d1 = data.map(d => {
-        if (d.from_area_id != "NULL" && d.from_long != "NULL" && d.from_lat !== "NULL") {
+        if (d && d.from_area_id != "NULL" && d.from_long != "NULL" && d.from_lat !== "NULL") {
           i++;
           return {
             name: d.from_area_id,
@@ -104387,7 +104387,7 @@ class App extends _react.Component {
       });
       const time_occur = Array.from(Array(24), x => 0);
       const time = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"];
-      const book_d1 = data.map(d => {
+      data.forEach(d => {
         const booking_time = d.booking_created.split(' ')[1].split(':')[0];
         var booking_time_integer = parseInt(booking_time, 10);
         time_occur[booking_time_integer]++;
@@ -104396,7 +104396,7 @@ class App extends _react.Component {
         x0: i,
         x: i + 1,
         y: t,
-        xOffset: -15,
+        xOffset: -16,
         style: {
           fill: '#aaa',
           fontSize: 13
@@ -104551,7 +104551,7 @@ class Wrapper extends _react.Component {
       type: "file",
       name: "selectedFile",
       id: "file",
-      class: "inputfile",
+      className: "inputfile",
       "data-multiple-caption": "{count} files selected",
       multiple: true
     }), _react.default.createElement("label", {

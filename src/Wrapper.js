@@ -84,7 +84,7 @@ export default class Wrapper extends Component {
                   <div className="upload-form-wrapper">
                     <div className="heading">Interactive Graphs In React</div>
                     <div className="upload-form">
-                      <input onChange={this.handleChange} type="file" name="selectedFile" id="file" class="inputfile" data-multiple-caption="{count} files selected" multiple />
+                      <input onChange={this.handleChange} type="file" name="selectedFile" id="file" className="inputfile" data-multiple-caption="{count} files selected" multiple />
                       <label htmlFor="file">{this.state.flnm.length ? this.state.flnm : "Choose File"}</label>
                       <button onClick={this.handleUpload} > {!this.state.clicked ? "Upload" : <span className="spinner"></span>} </button>
                     </div>
