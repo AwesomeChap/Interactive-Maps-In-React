@@ -4,9 +4,6 @@ import Map from './components/map';
 import axios from 'axios';
 import Charts from './components/charts';
 
-let inputFile = '../data.csv'
-let outputFile = '../data.json'
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -16,54 +13,55 @@ class App extends Component {
       filtered_data: [],
       booking_time_data: [],
       time_filter: "",
-      time_filter_selected: false,
-      selectedFile: null,
-      uploaded: false
     }
   }
 
-  handleBTF = (time) => {
+  //
+  handleFiltering = (time) => {
     const newData = [...this.state.data].filter(d => d.time_hour === time);
-    this.setState({ time_filter: time, time_filter_selected: true, filtered_data: newData });
+    this.setState({ time_filter: time, filtered_data: newData });
   }
 
-  handleResetFilter = () => this.setState({ time_filter: "", time_filter_selected: false });
+  handleResetFilter = () => this.setState({ time_filter: ""});
 
   componentDidMount() {
 
     const requestUrl = this.props.choice === 1 ? '/api/data' : '/api/default';
     axios.get(requestUrl).then(({ data }) => {
-      let i = 0;
-      const d1 = data.map(d => {
-        if (d && d.from_area_id != "NULL" && d.from_long != "NULL" && d.from_lat !== "NULL") {
-          i++;
-          return {
+
+      console.log(data);
+
+      let validData = [];
+      
+      data.forEach(d => {
+        if (d.from_area_id != "NULL" && d.from_long != "NULL" && d.from_lat !== "NULL") {
+          let validItem = {
             name: d.from_area_id,
             longitude: d.from_long,
             latitude: d.from_lat,
             time_hour: parseInt(d.booking_created.split(' ')[1].split(':')[0], 10)
           }
+          validData.push(validItem);
         }
       })
 
       const time_occur = Array.from(Array(24), (x) => 0);
-      const time = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"]
 
       data.forEach(d => {
-        const booking_time = d.booking_created.split(' ')[1].split(':')[0];
-        var booking_time_integer = parseInt(booking_time, 10);
-        time_occur[booking_time_integer]++;
+        const booking_hour = d.booking_created.split(' ')[1].split(':')[0];
+        var booking_hour_integer = parseInt(booking_hour, 10);
+        time_occur[booking_hour_integer]++;
       });
 
       const btd = time_occur.map((t, i) => ({
         x0: i,
         x: i + 1,
         y: t,
-        xOffset: -16,
+        xOffset: -16, // hack to center the count label of bars
         style: { fill: '#aaa', fontSize: 13 }
       }))
 
-      this.setState({ loading: false, data: d1, booking_time_data: btd },() => console.log('loaded'));
+      this.setState({ loading: false, data: validData, booking_time_data: btd }, () => console.log('loaded'));
     }).catch(e => console.log(e));
   }
 
@@ -75,8 +73,10 @@ class App extends Component {
             <div className="loading"></div>
           ) : (
               <>
-                <Map cities={!this.state.time_filter_selected ? this.state.data : this.state.filtered_data} />
-                <Charts time_filter_selected={this.state.time_filter_selected} time_filter={this.state.time_filter} resetFilter={this.handleResetFilter} getBTF={this.handleBTF} btd={this.state.booking_time_data} />
+                <Map cities={this.state.time_filter.length === 0 ? this.state.data : this.state.filtered_data} />
+                <Charts time_filter_selected={this.state.time_filter.length !== 0}
+                  resetFilter={this.handleResetFilter}
+                  filterData={this.handleFiltering} btd={this.state.booking_time_data} />
               </>
             )
         }

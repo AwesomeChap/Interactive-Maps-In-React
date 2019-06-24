@@ -66,6 +66,7 @@ export default class Wrapper extends Component {
         this.setState({ selectedFile: null, flnm: "" });
         alert('Please enter csv file');
       }
+      
     })
   }
 
@@ -82,7 +83,7 @@ export default class Wrapper extends Component {
                 <App choice={this.state.uploaded ? 1 : 2} />
               ) : (
                   <div className="upload-form-wrapper">
-                    <div className="heading">Interactive Graphs In React</div>
+                    <div className="heading">Interactive Maps In React</div>
                     <div className="upload-form">
                       <input onChange={this.handleChange} type="file" name="selectedFile" id="file" className="inputfile" data-multiple-caption="{count} files selected" multiple />
                       <label htmlFor="file">{this.state.flnm.length ? this.state.flnm : "Choose File"}</label>

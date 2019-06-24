@@ -1,26 +1,25 @@
 import React, { Component } from 'react'
-import Chart1 from './chart1';
-import Chart2 from './chart2';
+import Chart from './chart';
 
 export default class Charts extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showGraphs: false
+      showCharts: false
     }
   }
 
-  handleClick = () => this.setState({ showGraphs: !this.state.showGraphs });
+  handleClick = () => this.setState({ showCharts: !this.state.showCharts });
 
   render() {
     return (
       <>
         {
-          this.state.showGraphs && (
+          this.state.showCharts && (
             <div className="charts-container">
               <div className="chart">
                 <div className="chart-heading"><span>Number of bookings made round the clock</span></div>
-                <Chart2 getBTF={this.props.getBTF} data={this.props.btd} />
+                <Chart filterData={this.props.filterData} data={this.props.btd} />
               </div>
               <div className="chart">
                 <div className="dummy-chart">Chart 2</div>
@@ -35,7 +34,7 @@ export default class Charts extends Component {
           <div onClick={this.handleClick} className="btn">
             <>
               {
-                this.state.showGraphs ? (
+                this.state.showCharts ? (
                   <>
                     <i class="fas hide fa-chart-bar"></i>
                     <div className="diag-strike"></div>

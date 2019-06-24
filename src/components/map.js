@@ -50,7 +50,7 @@ export default class Mapp extends Component {
           longitude={city.longitude}
           latitude={city.latitude} >
           <CityPin size={20} 
-            // onClick={() => this.setState({ popupInfo: city })} 
+            onClick={() => this.setState({ popupInfo: city })} 
           />
         </Marker>
       );
@@ -99,7 +99,3 @@ export default class Mapp extends Component {
   }
 
 }
-
-// export function renderToDom(container) {
-//   render(<Map/>, container);
-// }
