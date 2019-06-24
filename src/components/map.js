@@ -4,7 +4,7 @@ import ReactMapGL, { Marker, Popup, NavigationControl, FullscreenControl } from 
 import CityPin from './city-pin';
 import CityInfo from './city-info';
 
-const TOKEN = 'pk.eyJ1IjoiYXdlc29tZWNoYXAiLCJhIjoiY2p3OWx3djN2MDBsODQzcGZqbDBwdTNvbCJ9.tRR9WzLF1fUVZBfh5lY_Ew'; // Set your mapbox token here
+const TOKEN = ''; // Set your mapbox token here
 
 const fullscreenControlStyle = {
   position: 'absolute',
