@@ -23,4 +23,7 @@ In order to run this project in your machine you first need to create a Mapbox a
 * `npm run dev` : It would run development server for our React Frontend. 
 * `npm start`   : It would run node server for our Backend.
 
+## Tutorial
+* Medium Blog [Link](https://medium.com/@jatin15011999/how-to-create-interactive-maps-in-react-js-ccdfad460fa0)
+
 **Note:** For the sake of fast development I've restricted number of input data points to first 2000 entries. If you wish to change it, you can do it be editing `server.js` file.
